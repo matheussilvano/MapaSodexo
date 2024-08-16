@@ -12,11 +12,9 @@ CaixaPostal=$(grep "^$EcSodexo" "$MapaSodexo" | awk '{print $2}')
 
 read -p "A caixa postal cadastrada no mapa eh "$CaixaPostal", deseja realizar a troca? [S/N]: " ConfirmaTroca
 
-# Criacao de backup
-cp -pv "$MapaSodexo" /home/skyline/scripts/sodexho/$BackupMapa
-echo "Backup criado! -> $BackupMapa"
-
 if [[ "$ConfirmaTroca" =~ ^[Ss]$ ]]; then
+    cp -pv "$MapaSodexo" /home/skyline/scripts/sodexho/$BackupMapa
+    echo "Backup criado! -> $BackupMapa"
     read -p "Informe a nova caixa postal: " NovaCaixaPostal
     # Faz a substituição no arquivo original
     sed -i "s/^$EcSodexo .*/$EcSodexo $NovaCaixaPostal/" /home/skyline/scripts/sodexho/Mapa_Clientes_Sodexo
